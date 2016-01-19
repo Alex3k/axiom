@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <title>hello phaser!</title>
-        <script src="phaser/build/phaser.min.js"></script>
+        <script src="libs/phaser/build/phaser.min.js"></script>
+        <script src="libs/jquery/jquery-2.2.0.min.js"></script>
+        <script src="libs/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
 
@@ -14,17 +16,27 @@
         var game = new Phaser.Game(1000, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
         function preload() {
+             game.load.bitmapFont('desyrel', 'assets/desyrel.png', 'assets/desyrel.xml');
         }
         
+        var bpmText;
+
         function create() {
+        
+            bmpText = game.add.bitmapText(200, 100, 'desyrel', 'Phaser & Pixi\nrocking!', 64);
+        
         }
         
         function update() {
+        
+            bmpText.text = $("#usr").val();
         }
 
     };
 
     </script>
+    
+   <input type="text" class="form-control" id="usr">
 
     </body>
 </html>
