@@ -1,0 +1,155 @@
+.sidebar{
+    height:100%;
+    z-index:9999;
+    width:250px;
+    top:0px;
+    right:0px;
+    position:fixed;
+    background: #333;
+    color: #fff;
+    box-shadow: 0 0 5px 5px #222 inset;
+}
+
+.sidebar-right{
+    right:0px;
+}
+
+.sidebar-left{
+    left:0px;
+}
+
+.sidebar h1,
+.sidebar h2,
+.sidebar h3,
+.sidebar h4,
+.sidebar h5,
+.sidebar h6 {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRkNGQ0ZCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFhMWExYSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d4d4d), color-stop(100%, #1a1a1a));
+  background-image: -moz-linear-gradient(#4d4d4d, #1a1a1a);
+  background-image: -webkit-linear-gradient(#4d4d4d, #1a1a1a);
+  background-image: linear-gradient(#4d4d4d, #1a1a1a);
+  font-size: 11px;
+  font-weight: normal;
+  padding: 0 15px;
+  margin: 0 0 5px;
+  color: #fff;
+  line-height: 24px;
+  box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar p {
+  font-size: 13px;
+  margin: 0 0 12px;
+}
+.sidebar p a {
+  color: rgba(255, 255, 255, 0.9);
+}
+.sidebar > p {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.sidebar ul {
+  display: block;
+  margin: 0 0 15px;
+  padding: 0;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #4d4d4d;
+}
+.sidebar ul li {
+  display: block;
+  margin: 0;
+  line-height: 48px;
+  border-top: 1px solid #4d4d4d;
+  border-bottom: 1px solid #1a1a1a;
+}
+.sidebar ul li:hover, .sidebar ul li.active, .sidebar ul li.sidebar-class-active {
+  border-top: 0;
+  line-height: 49px;
+}
+.sidebar ul li:hover > a,
+.sidebar ul li:hover > span, .sidebar ul li.active > a,
+.sidebar ul li.active > span, .sidebar ul li.sidebar-class-active > a,
+.sidebar ul li.sidebar-class-active > span {
+  box-shadow: 0 0 15px 3px #222 inset;
+}
+.sidebar ul li a,
+.sidebar ul li span {
+  padding: 0 15px;
+  display: block;
+  text-decoration: none;
+  color: #fff;
+}
+.sidebar ul li ul {
+  border-bottom: 0;
+  margin: 0;
+}
+.sidebar ul li ul li {
+  line-height: 40px;
+  font-size: 13px;
+}
+.sidebar ul li ul li:last-child {
+  border-bottom: 0;
+}
+.sidebar ul li ul li:hover, .sidebar ul li ul li.active, .sidebar ul li ul li.sidebar-class-active {
+  border-top: 0;
+  line-height: 41px;
+}
+.sidebar ul li ul li:hover > a,
+.sidebar ul li ul li:hover > span, .sidebar ul li ul li.active > a,
+.sidebar ul li ul li.active > span, .sidebar ul li ul li.sidebar-class-active > a,
+.sidebar ul li ul li.sidebar-class-active > span {
+  box-shadow: 0 0 15px 3px #222 inset;
+}
+.sidebar ul li ul li a,
+.sidebar ul li ul li span {
+  color: rgba(255, 255, 255, 0.8);
+  padding-left: 30px;
+}
+.sidebar form {
+  margin: 0 15px;
+}
+.sidebar label {
+  font-size: 13px;
+}
+.sidebar input[type="text"],
+.sidebar input[type="password"],
+.sidebar input[type="date"],
+.sidebar input[type="datetime"],
+.sidebar input[type="email"],
+.sidebar input[type="number"],
+.sidebar input[type="search"],
+.sidebar input[type="tel"],
+.sidebar input[type="time"],
+.sidebar input[type="url"],
+.sidebar textarea,
+.sidebar select {
+  width: 100%;
+  font-size: 13px;
+  padding: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 0 10px;
+  border-radius: 2px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  display: block;
+  clear: both;
+}
+.sidebar input[type=checkbox] {
+  width: auto;
+  display: inline;
+  clear: none;
+}
+.sidebar input[type=button],
+.sidebar input[type=submit] {
+  color: #333;
+  background: #fff;
+}
+.sidebar input[type=button]:hover,
+.sidebar input[type=submit]:hover {
+  background: rgba(255, 255, 255, 0.9);
+}

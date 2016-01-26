@@ -2,41 +2,138 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>hello phaser!</title>
+        <title>project-axiom!</title>
         <script src="libs/phaser/build/phaser.min.js"></script>
         <script src="libs/jquery/jquery-2.2.0.min.js"></script>
+        <script src="libs/jquery/jquery-ui.js"></script>
         <script src="libs/bootstrap/js/bootstrap.min.js"></script>
-    </head>
+        <script src="libs/knockout/knockout-3.4.0.js"></script>
+
+        <script type="text/javascript" src="src/EditMode.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="libs/sidebar/css/sidebar.css">
+        <link rel="stylesheet" type="text/css" href="libs/jquery/css/jquery-ui.css">
     <body>
 
     <script type="text/javascript">
+        var editMode;
 
-    window.onload = function() {
+        function ToggleTileMenu()
+        {
+            $( "#tile-menu" ).toggle( "slide", {
+                direction : 'right',
+                complete : function(){
+                    editMode.Toggle();
+                }
+            });
 
-        var game = new Phaser.Game(1000, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-
-        function preload() {
-             game.load.bitmapFont('desyrel', 'assets/desyrel.png', 'assets/desyrel.xml');
-        }
-        
-        var bpmText;
-
-        function create() {
-        
-            bmpText = game.add.bitmapText(200, 100, 'desyrel', 'Phaser & Pixi\nrocking!', 64);
-        
-        }
-        
-        function update() {
-        
-            bmpText.text = $("#usr").val();
+            return false;
         }
 
-    };
+        function selectTile(tile){
+            editMode.SetTile(tile);
 
+            return false;
+        }
+
+        function InitGUI()
+        {
+            $("#EditModeCheckBox").prop( "checked", false);
+        }
+
+        window.onload = function() {
+            var map;
+            var layer;
+            var cursors;
+            var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-game', { preload: preload, create: create, update: update, render: render });
+
+            function preload() {
+                InitGUI();
+
+                game.load.image('grass', 'assets/tiles/grass.png');
+                game.load.image('tiles', 'assets/tiles/tmw_desert_spacing.png');
+            }
+
+            function fillMap()
+            {
+                for (var x = 0; x < map.width; x++)
+                {
+                    for(var y = 0; y < map.height; y++)
+                    {
+                        map.putTile(0, x, y);
+                    }
+                }
+            }
+
+            function create() {
+                game.stage.backgroundColor = '#2d2d2d';
+                map = game.add.tilemap();
+
+
+                map.addTilesetImage('grass');
+                layer = map.create('ground', 40, 30, 32, 32);
+                layer.resizeWorld();
+                fillMap();
+
+                game.physics.startSystem(Phaser.Physics.ARCADE);
+
+
+
+                cursors = game.input.keyboard.createCursorKeys();
+                game.input.mouse.capture = true;
+
+                editMode = new EditMode(game, layer);
+
+                game.input.onTap.add(WorldClick);
+            }
+
+            function WorldClick(pointer, doubleTap){
+                editMode.PlaceTile(map)
+            }
+
+            function update() {
+                updateCamera();
+                editMode.UpdateMarker()
+            }
+
+            function updateCamera()
+            {
+                if (cursors.left.isDown)
+                {
+                    game.camera.x -= 10;
+                }
+                else if (cursors.right.isDown)
+                {
+                    game.camera.x += 10;
+                }
+
+                 if (cursors.up.isDown)
+                {
+                    game.camera.y -= 10;
+                }
+                else if (cursors.down.isDown)
+                {
+                    game.camera.y += 10;
+                }
+
+            }
+
+            function render() {
+
+            }
+
+        };
     </script>
-    
-   <input type="text" class="form-control" id="usr">
+
+    <div id="phaser-game"></div>
+
+    <input id="EditModeCheckBox" type="checkbox" onchange="return ToggleTileMenu();" >Edit Mode</input>
+
+    <div id="tile-menu" class="sidebar sidebar-right" style="display:none">
+        <button onclick="selectTile(0);">Grass</button>
+        <button onclick="selectTile(-1);">None</button>
+    </div>
+
 
     </body>
 </html>
