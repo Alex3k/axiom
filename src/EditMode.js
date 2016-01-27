@@ -7,7 +7,6 @@ function EditMode(game, layer){
     this.marker.drawRect(0, 0, 32, 32);
     this.marker.visible=false;
     this.currentTile = -1; // -1 denotes that there isn't a current tile
-
 }
 
 EditMode.prototype.Toggle = function (){

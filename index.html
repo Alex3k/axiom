@@ -8,6 +8,10 @@
         <script src="libs/jquery/jquery-ui.js"></script>
         <script src="libs/bootstrap/js/bootstrap.min.js"></script>
         <script src="libs/knockout/knockout-3.4.0.js"></script>
+        <script src="libs/ace/js/ace.js"></script>
+        <script src="libs/ace/js/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
+
+        <link rel="stylesheet" type="text/css" href="libs/ace/css/site.css">
 
         <script type="text/javascript" src="src/EditMode.js"></script>
 
@@ -30,6 +34,18 @@
             return false;
         }
 
+        function ToggleEditor()
+        {
+            $( "#editor" ).toggle( "slide", {
+                direction : 'right',
+                complete : function(){
+
+                }
+            });
+
+            return false;
+        }
+
         function selectTile(tile){
             editMode.SetTile(tile);
 
@@ -42,6 +58,9 @@
         }
 
         window.onload = function() {
+               var editor = ace.edit("editor");
+                editor.setTheme("ace/theme/twilight");
+
             var map;
             var layer;
             var cursors;
@@ -128,11 +147,16 @@
     <div id="phaser-game"></div>
 
     <input id="EditModeCheckBox" type="checkbox" onchange="return ToggleTileMenu();" >Edit Mode</input>
+        <input id="ToggleEditorCheckBox" type="checkbox" onchange="return ToggleEditor();" >Code Mode</input>
 
     <div id="tile-menu" class="sidebar sidebar-right" style="display:none">
         <button onclick="selectTile(0);">Grass</button>
         <button onclick="selectTile(-1);">None</button>
     </div>
+
+     <div id="editor" class="sidebar sidebar-right" style="display:none">
+    </div>
+
 
 
     </body>
