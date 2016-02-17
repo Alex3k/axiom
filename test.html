@@ -8,8 +8,13 @@
         <script src="libs/jquery/jquery-ui.js"></script>
         <script src="libs/bootstrap/js/bootstrap.min.js"></script>
         <script src="libs/knockout/knockout-3.4.0.js"></script>
+        <script src="libs/parallel/js/parallel.js"></script>
+
         <script src="libs/ace/js/ace.js"></script>
         <script src="libs/ace/js/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="libs/skulpt/js/skulpt.min.js" type="text/javascript"></script>
+        <script src="libs/skulpt/js/skulpt-stdlib.js" type="text/javascript"></script>
 
         <link rel="stylesheet" type="text/css" href="libs/ace/css/site.css">
 
@@ -23,6 +28,9 @@
     <body>
 
     <script type="text/javascript">
+        var editor;
+        var droid;
+
         function ToggleEditor()
         {
             $( "#editor" ).toggle( "slide", {
@@ -37,12 +45,11 @@
         }
 
         window.onload = function() {
-            var editor = ace.edit("editor");
+            editor = ace.edit("editor");
             var map;
             var layer;
             var cursors;
             var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-game', { preload: preload, create: create, update: update, render: render });
-            var droid;
 
             function preload() {
                 InitGUI();
@@ -77,8 +84,6 @@
 
                 game.physics.startSystem(Phaser.Physics.ARCADE);
 
-
-
                 cursors = game.input.keyboard.createCursorKeys();
                 game.input.mouse.capture = true;
 
@@ -94,7 +99,6 @@
             function update() {
                 updateCamera();
                 droid.Update();
-
             }
 
             function updateCamera()
@@ -116,27 +120,54 @@
                 {
                     game.camera.y += 10;
                 }
-
             }
-
 
             function render() {
 
             }
 
             editor.setTheme("ace/theme/twilight");
+            editor.getSession().setMode("ace/mode/python");
         };
+
+        function runCode()
+        {
+            var p = new Parallel(editor.getValue()
+            )
+
+            p = new Parallel(editor.getValue(), {
+              env: {
+                thing: droid
+              }
+            });
+
+            p.require(moveDroid);
+
+            p.spawn(execute).then(function() { alert("Done");});
+
+            return false;
+        }
+
+        function execute(code)
+        {
+           eval(code);
+        }
+
+        function moveDroid(x, y)
+        {
+            global.env.thing.sprite.x = x;
+        }
+
     </script>
 
     <div id="phaser-game"></div>
 
-
     <input id="ToggleEditorCheckBox" type="checkbox" onchange="return ToggleEditor();" >Code Mode</input>
 
-     <div id="editor" class="sidebar sidebar-right" style="display:none">
-    </div>
+    <div id="editor" class="sidebar sidebar-right" style="display:none"></div>
 
-
+    <button onclick="return runCode();">Run</button>
+    <pre id="output" ></pre>
 
     </body>
 </html>

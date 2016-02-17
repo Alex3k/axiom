@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>project-axiom!</title>
+
+    </head>
+
+    <body>
+
+   <p>Count numbers: <output id="result"></output></p>
+<button onclick="startWorker()">Start Worker</button>
+<button onclick="stopWorker()">Stop Worker</button>
+<br><br>
+
+<script>
+var w;
+var blob = new Blob([
+    "onmessage = function(e) { postMessage('msg from worker'); }"]);
+
+function startWorker() {
+    // Obtain a blob URL reference to our worker 'file'.
+var blobURL = window.URL.createObjectURL(blob);
+
+var worker = new Worker(blobURL);
+worker.onmessage = function(e) {
+ alert(e.data);
+};
+worker.postMessage(); // Start the worker.
+}
+
+function stopWorker() {
+    w.terminate();
+    w = undefined;
+}
+</script>
+
+
+    </body>
+</html>
